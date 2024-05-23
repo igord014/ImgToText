@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Извлечение текста из изображения</title>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.3/dist/tesseract.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #b0c4de;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: top;
+        height: 100vh;
+      }
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        max-width: 1200px;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: black;
+        text-align: center;
+      }
+
+      form {
+        display: inline-block;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 30%;
+        align-items: center;
+        margin: 20px;
+      }
+
+      input[type="file"] {
+        margin-bottom: 15px;
+      }
+
+      input[type="submit"] {
+        background-color: rgb(18, 16, 16);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        align-items: center;
+      }
+
+      input[type="submit"]:hover {
+        background-color: green;
+      }
+
+      .button {
+        background-color: #f0f0f0;
+        border: 1px solid black;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center; /* Горизонтальное выравнивание по центру */
+        align-items: center; /* Вертикальное выравнивание по центру */
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 30%;
+        margin: 20px;
+      }
+
+      .custom-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #00ffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: none;
+        font-size: 1em;
+        transform: none;
+      }
+
+      .blue-cell {
+        color: #007bff;
+        word-wrap: break-word;
+        max-width: 100%;
+        white-space: pre-wrap;
+      }
+
+      .language-selector {
+        display: flex;
+        margin-bottom: 10px;
+      }
+
+      .language-button {
+        margin-right: 10px;
+      }
+
+      #loadingMessage {
+        display: none;
+        margin-top: 20px;
+        color: red;
+      }
+      .containerText {
+        display: inline-block;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 30%;
+        align-items: center;
+        margin: 20px;
+
+        h2 {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Извлечение текста из изображения</h1>
+      <div class="content">
+        <form
+          id="imageForm"
+          action="javascript:void(0);"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <input type="file" id="fileInput" name="image" accept="image/*" />
+          <input
+            type="submit"
+            value="Извлечь текст"
+            onclick="handleFile()"
+          /><br />
+          <button class="button" id="pasteButton">Clipboard</button>
+        </form>
+
+        <div class="containerText">
+          <h2>Извлечённый текст</h2>
+          <span id="textToResult" class="blue-cell-style"></span>
+        </div>
+
+        <div class="container">
+          <button type="button" class="button" onclick="copyText()">
+            Copy
+          </button>
+          <button type="button" class="button" onclick="closePage()">
+            Close
+          </button>
+          <button
+            class="button"
+            onclick="window.open('https://chatgpt.com/', '_blank')"
+          >
+            GPT
+          </button>
+        </div>
+      </div>
+      <div id="customAlert" class="custom-alert">Text copied to clipboard</div>
+      <div id="loadingMessage">Извлечение текста, подождите...</div>
+    </div>
+
+    <script>
+      document
+        .getElementById("pasteButton")
+        .addEventListener("click", async () => {
+          try {
+            const clipboardItems = await navigator.clipboard.read();
+            for (const item of clipboardItems) {
+              if (
+                item.types.includes("image/png") ||
+                item.types.includes("image/jpeg")
+              ) {
+                const blob = await item.getType(
+                  item.types.find((type) => type.startsWith("image/"))
+                );
+                extractTextFromImage(blob);
+                break;
+              }
+            }
+          } catch (error) {
+            console.error("Failed to read clipboard contents: ", error);
+          }
+        });
+
+      async function handleFile() {
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          extractTextFromImage(file);
+        }
+      }
+
+      async function extractTextFromImage(imageBlob) {
+        document.getElementById("loadingMessage").style.display = "block";
+        try {
+          const {
+            data: { text },
+          } = await Tesseract.recognize(imageBlob, "eng", {
+            logger: (m) => console.log(m),
+          });
+          document.getElementById("textToResult").innerText = text;
+        } catch (error) {
+          console.error("Error extracting text: ", error);
+          document.getElementById("textToResult").innerText =
+            "Ошибка при извлечении текста.";
+        }
+        document.getElementById("loadingMessage").style.display = "none";
+      }
+
+      function copyText() {
+        var textToCopy = document.getElementById("textToResult").innerText;
+
+        var tempInput = document.createElement("textarea");
+        tempInput.value = textToCopy;
+        tempInput.style = "position: absolute; left: -9999px; top: -9999px;";
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        document.execCommand("copy");
+
+        document.body.removeChild(tempInput);
+
+        var customAlert = document.getElementById("customAlert");
+        customAlert.style.display = "block";
+
+        setTimeout(function () {
+          customAlert.style.display = "none";
+        }, 3000);
+      }
+
+      function closePage() {
+        window.close();
+      }
+    </script>
+  </body>
+</html>
