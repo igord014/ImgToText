@@ -44,16 +44,30 @@
 
       form {
         display: inline-block;
+        justify-content: center; /* Горизонтальное выравнивание по центру */
+        align-items: center; /* Вертикальное выравнивание по центру */
         background-color: #fff;
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
         width: 30%;
-        align-items: center;
         margin: 20px;
+        height: 150px; /* Задайте минимальную высоту */
+      }
+
+      .container {
+        display: flex; /* Используем Flexbox */
+        justify-content: center; /* Горизонтальное выравнивание по центру */
+        align-items: center; /* Вертикальное выравнивание по центру */
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 30%;
+        margin: 20px;
+        height: 150px;
       }
 
       input[type="file"] {
@@ -69,6 +83,7 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
         align-items: center;
+        height: 50px;
       }
 
       input[type="submit"]:hover {
@@ -89,19 +104,6 @@
       .button:hover {
         background-color: #007bff;
         color: #fff;
-      }
-
-      .container {
-        display: flex;
-        justify-content: center; /* Горизонтальное выравнивание по центру */
-        align-items: center; /* Вертикальное выравнивание по центру */
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        width: 30%;
-        margin: 20px;
       }
 
       .custom-alert {
@@ -155,6 +157,20 @@
           font-size: 1em;
         }
       }
+
+      /* Новое сообщение о пустом буфере обмена */
+      .clipboard-alert {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background-color: #ffcccb;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: none;
+        font-size: 1em;
+        transform: none;
+      }
     </style>
   </head>
   <body>
@@ -197,6 +213,8 @@
         </div>
       </div>
       <div id="customAlert" class="custom-alert">Text copied to clipboard</div>
+      <!-- Новое сообщение о пустом буфере обмена -->
+      <div id="clipboardAlert" class="clipboard-alert">Clipboard is empty</div>
       <div id="loadingMessage">Извлечение текста, подождите...</div>
     </div>
 
@@ -206,17 +224,25 @@
         .addEventListener("click", async () => {
           try {
             const clipboardItems = await navigator.clipboard.read();
+            let imageFound = false; // Флаг для проверки наличия изображения
+
             for (const item of clipboardItems) {
               if (
                 item.types.includes("image/png") ||
                 item.types.includes("image/jpeg")
               ) {
+                imageFound = true; // Установить флаг в true, если найдено изображение
                 const blob = await item.getType(
                   item.types.find((type) => type.startsWith("image/"))
                 );
                 extractTextFromImage(blob);
                 break;
               }
+            }
+
+            // Показать сообщение, если изображение не найдено
+            if (!imageFound) {
+              showClipboardAlert();
             }
           } catch (error) {
             console.error("Failed to read clipboard contents: ", error);
@@ -271,6 +297,16 @@
 
       function closePage() {
         window.close();
+      }
+
+      // Новая функция для отображения сообщения о пустом буфере обмена
+      function showClipboardAlert() {
+        var clipboardAlert = document.getElementById("clipboardAlert");
+        clipboardAlert.style.display = "block";
+
+        setTimeout(function () {
+          clipboardAlert.style.display = "none";
+        }, 3000);
       }
     </script>
   </body>
