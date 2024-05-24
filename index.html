@@ -44,8 +44,8 @@
 
       form {
         display: inline-block;
-        justify-content: center; /* Горизонтальное выравнивание по центру */
-        align-items: center; /* Вертикальное выравнивание по центру */
+        justify-content: center;
+        align-items: center;
         background-color: #fff;
         padding: 20px;
         border-radius: 8px;
@@ -53,13 +53,13 @@
         text-align: center;
         width: 30%;
         margin: 20px;
-        height: 150px; /* Задайте минимальную высоту */
+        height: 150px;
       }
 
       .container {
-        display: flex; /* Используем Flexbox */
-        justify-content: center; /* Горизонтальное выравнивание по центру */
-        align-items: center; /* Вертикальное выравнивание по центру */
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: #fff;
         padding: 20px;
         border-radius: 8px;
@@ -140,6 +140,7 @@
         margin-top: 20px;
         color: red;
       }
+
       .containerText {
         display: inline-block;
         background-color: #fff;
@@ -152,14 +153,11 @@
         width: 30%;
         align-items: center;
         margin: 20px;
-
-        h2 {
-          font-size: 1em;
-        }
       }
 
       /* Новое сообщение о пустом буфере обмена */
-      .clipboard-alert {
+      .clipboard-alert,
+      .file-alert {
         position: fixed;
         top: 20px;
         left: 20px;
@@ -216,6 +214,8 @@
       <div id="customAlert" class="custom-alert">Text copied to clipboard</div>
       <!-- Новое сообщение о пустом буфере обмена -->
       <div id="clipboardAlert" class="clipboard-alert">Clipboard is empty</div>
+      <!-- Новое сообщение о незаполненном поле выбора файла -->
+      <div id="fileAlert" class="file-alert">Ничего не выбрано</div>
       <div id="loadingMessage">Извлечение текста, подождите...</div>
     </div>
 
@@ -255,6 +255,8 @@
         if (fileInput.files.length > 0) {
           const file = fileInput.files[0];
           extractTextFromImage(file);
+        } else {
+          showFileAlert();
         }
       }
 
@@ -309,6 +311,17 @@
           clipboardAlert.style.display = "none";
         }, 3000);
       }
+
+      // Новая функция для отображения сообщения о незаполненном поле выбора файла
+      function showFileAlert() {
+        var fileAlert = document.getElementById("fileAlert");
+        fileAlert.style.display = "block";
+
+        setTimeout(function () {
+          fileAlert.style.display = "none";
+        }, 3000);
+      }
+
       function reloadPage() {
         window.location.reload();
       }
