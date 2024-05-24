@@ -172,15 +172,24 @@
       }
 
       @media (max-width: 360px) {
-        .wrapper, .content, .containerText, .container, form {
+        .wrapper,
+        .content,
+        .containerText,
+        .container,
+        form {
           width: 100%;
           margin: 0;
           padding: 10px;
         }
 
-        input[type="submit"], .button {
+        input[type="submit"],
+        .button {
           width: 100%;
           margin-bottom: 10px;
+        }
+
+        .content > * {
+          margin-bottom: 20px; /* Add vertical space between containers */
         }
       }
     </style>
@@ -222,7 +231,9 @@
           >
             GPT
           </button>
-          <button type="button" class="button" onclick="reloadPage()">Reload</button>
+          <button type="button" class="button" onclick="reloadPage()">
+            Reload
+          </button>
         </div>
       </div>
       <div id="customAlert" class="custom-alert">Text copied to clipboard</div>
