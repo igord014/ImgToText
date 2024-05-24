@@ -33,6 +33,7 @@
         width: 100%;
         justify-content: space-between;
         margin-top: 20px;
+        flex-wrap: wrap; /* Flexbox wrapping to prevent overflow */
       }
 
       h1 {
@@ -168,6 +169,19 @@
         display: none;
         font-size: 1em;
         transform: none;
+      }
+
+      @media (max-width: 360px) {
+        .wrapper, .content, .containerText, .container, form {
+          width: 100%;
+          margin: 0;
+          padding: 10px;
+        }
+
+        input[type="submit"], .button {
+          width: 100%;
+          margin-bottom: 10px;
+        }
       }
     </style>
   </head>
