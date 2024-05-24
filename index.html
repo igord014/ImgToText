@@ -325,7 +325,7 @@
 
       function closePage() {
         if (window.self !== window.top) {
-          // Если скрипт выполняется в iframe, закрыть iframe
+          // Если скрипт выполняется в iframe, закрыть iframe/
           window.parent.postMessage('close', '*');
         } else {
           // Попытаться закрыть текущее окно
