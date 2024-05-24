@@ -210,6 +210,7 @@
           >
             GPT
           </button>
+          <button type="button" class="button" onclick="reloadPage()">Reload</button>
         </div>
       </div>
       <div id="customAlert" class="custom-alert">Text copied to clipboard</div>
@@ -307,6 +308,9 @@
         setTimeout(function () {
           clipboardAlert.style.display = "none";
         }, 3000);
+      }
+      function reloadPage() {
+        window.location.reload();
       }
     </script>
   </body>
