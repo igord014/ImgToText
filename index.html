@@ -228,11 +228,42 @@
               /> </label
             ><br />
 
-            <input
-              type="submit"
-              value="Извлечь текст"
-              onclick="handleFile()"
-            /><br />
+            <button type="submit" class="button-with-icon" onclick="handleFile()">
+              <i class="fas fa-file"></i> Извлечь текст
+              <style>
+                /* Стиль для кнопки */
+                .button-with-icon {
+                  display: inline-block;
+                  padding: 10px 20px;
+                  font-size: 16px;
+                  font-weight: bold;
+                  text-align: center;
+                  text-decoration: none;
+                  color: #ffffff;
+                  background-color: #007bff; /* Цвет фона кнопки */
+                  border: none;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease;
+                }
+                
+                /* Стиль для иконки внутри кнопки */
+                .button-with-icon i {
+                  margin-right: 5px; /* Расстояние между иконкой и текстом */
+                }
+                
+                /* Изменение цвета фона при наведении на кнопку */
+                .button-with-icon:hover {
+                  background-color: #0056b3;
+                }
+                
+                /* Убираем контур фокуса при активации кнопки */
+                .button-with-icon:focus {
+                  outline: none;
+                }
+                </style>
+            </button><br />
+
             <button class="button" id="pasteButton">Clipboard</button>
           </form>
 
