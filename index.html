@@ -271,9 +271,7 @@
             <button type="button" class="button" onclick="copyText()">
               Copy
             </button>
-            <button type="button" class="button" onclick="closePage()">
-              Close
-            </button>
+            
             <button
               class="button"
               onclick="window.open('https://chatgpt.com/', '_blank')"
@@ -378,15 +376,7 @@
         }, 3000);
       }
 
-      function closePage() {
-        if (window.self !== window.top) {
-          // Если скрипт выполняется в iframe, закрыть iframe/
-          window.parent.postMessage("close", "*");
-        } else {
-          // Попытаться закрыть текущее окно
-          window.close();
-        }
-      }
+      
 
       // Новая функция для отображения сообщения о пустом буфере обмена
       function showClipboardAlert() {
