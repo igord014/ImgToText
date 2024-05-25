@@ -22,19 +22,16 @@
         justify-content: center;
         height: 100%;
       }
-
+  
       .wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 80%;
+        width: 90%;
         max-width: 1200px;
         padding: 10px;
-        overflow-y: auto; /* Добавлено свойство для прокрутки контейнера */
-        right: 0; /* Прокрутка установлена по правому краю */
-        width: 200%; /* Увеличиваем ширину для прокрутки */
       }
-
+  
       .content {
         display: flex;
         flex-direction: column;
@@ -43,16 +40,14 @@
         justify-content: center;
         margin-top: 20px;
       }
-
+  
       h1 {
         font-size: 1.2em;
         margin-bottom: 20px;
         color: black;
         text-align: center;
-        max-width: 100%; /* Максимальная ширина контейнера */
-        word-wrap: break-word; /* Перенос текста на новую строку */
       }
-
+  
       .form-container,
       .containerText {
         background-color: #fff;
@@ -61,31 +56,33 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         display: flex;
         flex-direction: column;
-        align-items: center; /* Выравнивание содержимого по центру */
-        justify-content: center; /* Выравнивание содержимого по центру */
+        align-items: center;
+        justify-content: center;
         width: 100%;
         max-width: 360px;
         margin-bottom: 20px;
       }
+  
       form {
-        width: 100%; /* Занимать всю доступную ширину контейнера */
-        max-width: 200px; /* Максимальная ширина формы */
+        width: 100%;
+        max-width: 200px;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Выравнивание по центру внутри контейнера */
+        align-items: center;
       }
+  
       .container {
-        width: 100%; /* Занимать всю доступную ширину контейнера */
-        max-width: 200px; /* Максимальная ширина формы */
+        width: 100%;
+        max-width: 200px;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Выравнивание по центру внутри контейнера */
+        align-items: center;
       }
-
+  
       input[type="file"] {
         margin-bottom: 15px;
       }
-
+  
       input[type="submit"] {
         background-color: rgb(18, 16, 16);
         color: white;
@@ -99,11 +96,11 @@
         width: 100%;
         max-width: 200px;
       }
-
+  
       input[type="submit"]:hover {
         background-color: green;
       }
-
+  
       .button {
         background-color: #f0f0f0;
         border: 1px solid black;
@@ -116,15 +113,16 @@
         width: 100%;
         max-width: 200px;
       }
-
+  
       .button:hover {
         background-color: #007bff;
         color: #fff;
       }
+  
       #textToResult {
-        padding: 10px; /* Добавляем отступ вокруг текста */
+        padding: 10px;
       }
-
+  
       .custom-alert {
         position: fixed;
         top: 20px;
@@ -137,15 +135,14 @@
         font-size: 1em;
         transform: none;
       }
-
+  
       .blue-cell {
         color: #007bff;
         word-wrap: break-word;
         max-width: 100%;
         white-space: pre-wrap;
       }
-
-      /* Новое сообщение о пустом буфере обмена */
+  
       .clipboard-alert,
       .file-alert {
         position: fixed;
@@ -159,27 +156,25 @@
         font-size: 1em;
         transform: none;
       }
-
+  
       #loadingMessage {
         display: none;
         margin-top: 20px;
         color: red;
       }
-
+  
       @media (min-width: 361px) {
         .content {
           flex-direction: row;
           flex-wrap: wrap;
           justify-content: space-between;
-          align-items: flex-start; /* Выравнивание контейнеров по верху */
+          align-items: flex-start;
         }
-
+  
         .form-container,
         .containerText {
-          width: calc(
-            50% - 20px
-          ); /* 50% ширины контейнера .content с отступами */
-          margin: 0;
+          width: calc(50% - 20px);
+          margin: 10px;
         }
       }
     </style>
