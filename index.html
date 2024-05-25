@@ -44,19 +44,33 @@
         text-align: center;
       }
 
-      .form-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+      .form-container,
+      .containerText {
         background-color: #fff;
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Выравнивание содержимого по центру */
+        justify-content: center; /* Выравнивание содержимого по центру */
         width: 100%;
         max-width: 360px;
         margin-bottom: 20px;
+      }
+      form {
+        width: 100%; /* Занимать всю доступную ширину контейнера */
+        max-width: 200px; /* Максимальная ширина формы */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Выравнивание по центру внутри контейнера */
+      }
+      .container {
+        width: 100%; /* Занимать всю доступную ширину контейнера */
+        max-width: 200px; /* Максимальная ширина формы */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Выравнивание по центру внутри контейнера */
       }
 
       input[type="file"] {
@@ -119,19 +133,6 @@
         white-space: pre-wrap;
       }
 
-      .containerText {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 360px;
-        margin-bottom: 20px;
-      }
-
       /* Новое сообщение о пустом буфере обмена */
       .clipboard-alert,
       .file-alert {
@@ -157,12 +158,16 @@
         .content {
           flex-direction: row;
           flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: flex-start; /* Выравнивание контейнеров по верху */
         }
 
         .form-container,
         .containerText {
-          width: 30%;
-          margin: 20px;
+          width: calc(
+            50% - 20px
+          ); /* 50% ширины контейнера .content с отступами */
+          margin: 0;
         }
       }
     </style>
