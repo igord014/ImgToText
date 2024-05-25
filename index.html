@@ -15,7 +15,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: top;
+        justify-content: center;
         height: 100vh;
       }
 
@@ -25,15 +25,16 @@
         align-items: center;
         width: 80%;
         max-width: 1200px;
+        padding: 10px;
       }
 
       .content {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         width: 100%;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
         margin-top: 20px;
-        flex-wrap: wrap; /* Flexbox wrapping to prevent overflow */
       }
 
       h1 {
@@ -53,9 +54,9 @@
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         text-align: center;
-        width: 30%;
-        margin: 20px;
-        height: 200px; /* Combined height of form and container */
+        width: 100%;
+        max-width: 360px;
+        margin-bottom: 20px;
       }
 
       input[type="file"] {
@@ -70,8 +71,10 @@
         border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        align-items: center;
         height: 50px;
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 200px;
       }
 
       input[type="submit"]:hover {
@@ -87,6 +90,8 @@
         cursor: pointer;
         margin: 5px;
         transition: background-color 0.3s, color 0.3s;
+        width: 100%;
+        max-width: 200px;
       }
 
       .button:hover {
@@ -114,23 +119,7 @@
         white-space: pre-wrap;
       }
 
-      .language-selector {
-        display: flex;
-        margin-bottom: 10px;
-      }
-
-      .language-button {
-        margin-right: 10px;
-      }
-
-      #loadingMessage {
-        display: none;
-        margin-top: 20px;
-        color: red;
-      }
-
       .containerText {
-        display: inline-block;
         background-color: #fff;
         padding: 20px;
         border-radius: 8px;
@@ -138,9 +127,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 30%;
-        align-items: center;
-        margin: 20px;
+        width: 100%;
+        max-width: 360px;
+        margin-bottom: 20px;
       }
 
       /* Новое сообщение о пустом буфере обмена */
@@ -158,24 +147,22 @@
         transform: none;
       }
 
-      @media (max-width: 360px) {
-        .wrapper,
-        .content,
-        .containerText,
-        .form-container {
-          width: 100%;
-          margin: 0;
-          padding: 10px;
+      #loadingMessage {
+        display: none;
+        margin-top: 20px;
+        color: red;
+      }
+
+      @media (min-width: 361px) {
+        .content {
+          flex-direction: row;
+          flex-wrap: wrap;
         }
 
-        input[type="submit"],
-        .button {
-          width: 100%;
-          margin-bottom: 10px;
-        }
-
-        .content > * {
-          margin-bottom: 20px; /* Add vertical space between containers */
+        .form-container,
+        .containerText {
+          width: 30%;
+          margin: 20px;
         }
       }
     </style>
