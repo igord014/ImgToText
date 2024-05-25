@@ -228,7 +228,11 @@
               /> </label
             ><br />
 
-            <button type="submit" class="button-with-icon" onclick="handleFile()">
+            <button
+              type="submit"
+              class="button-with-icon"
+              onclick="handleFile()"
+            >
               <i class="fas fa-file"></i> Извлечь текст
               <style>
                 /* Стиль для кнопки */
@@ -246,23 +250,23 @@
                   cursor: pointer;
                   transition: background-color 0.3s ease;
                 }
-                
+
                 /* Стиль для иконки внутри кнопки */
                 .button-with-icon i {
                   margin-right: 5px; /* Расстояние между иконкой и текстом */
                 }
-                
+
                 /* Изменение цвета фона при наведении на кнопку */
                 .button-with-icon:hover {
                   background-color: #0056b3;
                 }
-                
+
                 /* Убираем контур фокуса при активации кнопки */
                 .button-with-icon:focus {
                   outline: none;
                 }
-                </style>
-            </button><br />
+              </style></button
+            ><br />
 
             <button class="button" id="pasteButton">Clipboard</button>
           </form>
@@ -271,7 +275,7 @@
             <button type="button" class="button" onclick="copyText()">
               Copy
             </button>
-            
+
             <button
               class="button"
               onclick="window.open('https://chatgpt.com/', '_blank')"
@@ -286,6 +290,7 @@
 
         <div class="containerText">
           <h2>Извлечённый текст</h2>
+          <div id="loadingMessage">Извлечение текста, подождите...</div>
           <span id="textToResult" class="blue-cell-style"></span>
         </div>
       </div>
@@ -294,7 +299,6 @@
       <div id="clipboardAlert" class="clipboard-alert">Clipboard is empty</div>
       <!-- Новое сообщение о незаполненном поле выбора файла -->
       <div id="fileAlert" class="file-alert">Ничего не выбрано</div>
-      <div id="loadingMessage">Извлечение текста, подождите...</div>
     </div>
 
     <script>
@@ -358,6 +362,11 @@
       function copyText() {
         var textToCopy = document.getElementById("textToResult").innerText;
 
+        if (!textToCopy) {
+          showClipboardAlert();
+          return;
+        }
+
         var tempInput = document.createElement("textarea");
         tempInput.value = textToCopy;
         tempInput.style = "position: absolute; left: -9999px; top: -9999px;";
@@ -375,8 +384,6 @@
           customAlert.style.display = "none";
         }, 3000);
       }
-
-      
 
       // Новая функция для отображения сообщения о пустом буфере обмена
       function showClipboardAlert() {
