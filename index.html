@@ -26,6 +26,9 @@
         width: 80%;
         max-width: 1200px;
         padding: 10px;
+        overflow-y: auto; /* Добавлено свойство для прокрутки контейнера */
+        right: 0; /* Прокрутка установлена по правому краю */
+        width: 200%; /* Увеличиваем ширину для прокрутки */
       }
 
       .content {
@@ -38,10 +41,12 @@
       }
 
       h1 {
-        font-size: 2em;
+        font-size: 1.2em;
         margin-bottom: 20px;
         color: black;
         text-align: center;
+        max-width: 100%; /* Максимальная ширина контейнера */
+        word-wrap: break-word; /* Перенос текста на новую строку */
       }
 
       .form-container,
@@ -111,6 +116,9 @@
       .button:hover {
         background-color: #007bff;
         color: #fff;
+      }
+      #textToResult {
+        padding: 10px; /* Добавляем отступ вокруг текста */
       }
 
       .custom-alert {
