@@ -22,7 +22,7 @@
         justify-content: center;
         height: 100%;
       }
-  
+
       .wrapper {
         display: flex;
         flex-direction: column;
@@ -31,7 +31,7 @@
         max-width: 1200px;
         padding: 10px;
       }
-  
+
       .content {
         display: flex;
         flex-direction: column;
@@ -40,14 +40,14 @@
         justify-content: center;
         margin-top: 20px;
       }
-  
+
       h1 {
         font-size: 1.2em;
         margin-bottom: 20px;
         color: black;
         text-align: center;
       }
-  
+
       .form-container,
       .containerText {
         background-color: #fff;
@@ -62,7 +62,7 @@
         max-width: 360px;
         margin-bottom: 20px;
       }
-  
+
       form {
         width: 100%;
         max-width: 200px;
@@ -70,7 +70,7 @@
         flex-direction: column;
         align-items: center;
       }
-  
+
       .container {
         width: 100%;
         max-width: 200px;
@@ -78,11 +78,11 @@
         flex-direction: column;
         align-items: center;
       }
-  
+
       input[type="file"] {
         margin-bottom: 15px;
       }
-  
+
       input[type="submit"] {
         background-color: rgb(18, 16, 16);
         color: white;
@@ -96,11 +96,11 @@
         width: 100%;
         max-width: 200px;
       }
-  
+
       input[type="submit"]:hover {
         background-color: green;
       }
-  
+
       .button {
         background-color: #f0f0f0;
         border: 1px solid black;
@@ -113,16 +113,16 @@
         width: 100%;
         max-width: 200px;
       }
-  
+
       .button:hover {
         background-color: #007bff;
         color: #fff;
       }
-  
+
       #textToResult {
         padding: 10px;
       }
-  
+
       .custom-alert {
         position: fixed;
         top: 20px;
@@ -135,14 +135,14 @@
         font-size: 1em;
         transform: none;
       }
-  
+
       .blue-cell {
         color: #007bff;
         word-wrap: break-word;
         max-width: 100%;
         white-space: pre-wrap;
       }
-  
+
       .clipboard-alert,
       .file-alert {
         position: fixed;
@@ -156,13 +156,13 @@
         font-size: 1em;
         transform: none;
       }
-  
+
       #loadingMessage {
         display: none;
         margin-top: 20px;
         color: red;
       }
-  
+
       @media (min-width: 361px) {
         .content {
           flex-direction: row;
@@ -170,7 +170,7 @@
           justify-content: space-between;
           align-items: flex-start;
         }
-  
+
         .form-container,
         .containerText {
           width: calc(50% - 20px);
@@ -286,7 +286,9 @@
         <div class="containerText">
           <h2>Извлечённый текст</h2>
           <div id="loadingMessage">Извлечение текста, подождите...</div>
-          <span id="textToResult" class="blue-cell-style"></span>
+          <span id="textToResult" class="blue-cell-style"
+            >преврати это в код без дополнений
+          </span>
         </div>
       </div>
       <div id="customAlert" class="custom-alert">Text copied to clipboard</div>
@@ -295,7 +297,7 @@
       <!-- Новое сообщение о незаполненном поле выбора файла -->
       <div id="fileAlert" class="file-alert">Ничего не выбрано</div>
     </div>
-
+    >
     <script>
       document
         .getElementById("pasteButton")
@@ -345,7 +347,8 @@
           } = await Tesseract.recognize(imageBlob, "eng", {
             logger: (m) => console.log(m),
           });
-          document.getElementById("textToResult").innerText = text;
+          document.getElementById("textToResult").innerHTML =
+            "преврати это в код без изменений:<br> <br>" + text;
         } catch (error) {
           console.error("Error extracting text: ", error);
           document.getElementById("textToResult").innerText =
