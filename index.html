@@ -345,8 +345,8 @@
           } = await Tesseract.recognize(imageBlob, "eng", {
             logger: (m) => console.log(m),
           });
-          document.getElementById("textToResult").innerHTML =
-            "преврати это в код без изменений:<br> <br>" + text;
+          document.getElementById("textToResult").innerText =
+            "преврати это в код без изменений:\n\n" + text;
         } catch (error) {
           console.error("Error extracting text: ", error);
           document.getElementById("textToResult").innerText =
